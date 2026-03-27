@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análisis de Puesto de Trabajo · Evoluciona Consulting</title>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+
+  :root {
+    --teal: #4ec8c8;
+    --teal-dark: #2da5a5;
+    --teal-light: #e8f8f8;
+    --orange: #e87d3e;
+    --text: #2c2c2c;
+    --text-light: #666;
+    --border: #cde8e8;
+    --bg-label: #f0fafa;
+    --bg-section: #ffffff;
+    --section-title: #1a6b6b;
+    --sub-title: #2da5a5;
+    --gray-light: #f7f7f7;
+    --input-border: #c5dede;
+    --font-main: 'Source Sans 3', sans-serif;
+    --font-head: 'Raleway', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: hidden; }
+
+  body {
+    font-family: var(--font-main);
+    color: var(--text);
+    background: #ffffff;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  /* Print button */
+  .print-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: var(--teal);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 24px;
+    z-index: 100;
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  }
+  .print-bar span { opacity: .85; }
+  .btn-save {
+    background: #fff;
+    color: var(--teal-dark);
+    border: none;
+    border-radius: 4px;
+    padding: 7px 18px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    letter-spacing: .04em;
+    transition: background .15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-save:hover { background: #d8f5f5; }
+
+  .document {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    background: #fff;
+    box-shadow: none;
+    overflow: hidden;
+  }
+
+  /* Cover */
+  .cover {
+    padding: 50px 30px 40px;
+    text-align: center;
+    border-bottom: 3px solid var(--teal);
+  }
+  .logo-wrap {
+    margin-bottom: 28px;
+  }
+
+  .cover-title {
+    font-family: var(--font-head);
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--teal-dark);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .cover-subtitle {
+    font-family: var(--font-main);
+    font-style: italic;
+    color: var(--text-light);
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+  .cover-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  .cover-table td {
+    border: 1px solid var(--border);
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+  .cover-table td:first-child {
+    font-weight: 700;
+    background: var(--bg-label);
+    width: 200px;
+    color: var(--text);
+  }
+
+  /* Body */
+  .doc-body {
+    padding: 0 30px 40px;
+  }
+
+  /* Section */
+  .section {
+    margin-top: 36px;
+  }
+  .section-title {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--section-title);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    border-bottom: 2px solid var(--teal);
+    padding-bottom: 5px;
+    margin-bottom: 16px;
+  }
+  .sub-title {
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--sub-title);
+    margin: 14px 0 6px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  .hint {
+    font-style: italic;
+    color: #888;
+    font-size: 11.5px;
+    border-left: 3px solid var(--teal-light);
+    background: #fafefe;
+    padding: 7px 12px;
+    margin-bottom: 10px;
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* Grid layouts */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+  /* Field group */
+  .field-group { margin-bottom: 12px; }
+  .field-label {
+    font-weight: 700;
+    font-size: 11.5px;
+    color: var(--text);
+    margin-bottom: 3px;
+    display: block;
+  }
+  .field-label .opt {
+    font-weight: 400;
+    color: #999;
+    font-size: 10.5px;
+    font-style: italic;
+  }
+
+  /* Inputs */
+  input[type="text"], input[type="email"], input[type="tel"], input[type="url"], textarea, select {
+    width: 100%;
+    border: 1px solid var(--input-border);
+    border-radius: 3px;
+    padding: 7px 10px;
+    font-family: var(--font-main);
+    font-size: 12.5px;
+    color: var(--text);
+    background: #fdfdfd;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+    resize: vertical;
+  }
+  input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus,
+  input[type="url"]:focus, textarea:focus, select:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(78,200,200,.12);
+    background: #fff;
+  }
+  textarea { min-height: 80px; line-height: 1.5; }
+  textarea.tall { min-height: 120px; }
+  textarea.xtall { min-height: 160px; }
+
+  /* Labeled box (2-col with bold label) */
+  .labeled-box {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .labeled-box .lbl {
+    background: var(--bg-label);
+    font-weight: 700;
+    padding: 9px 12px;
+    font-size: 12.5px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+  }
+  .labeled-box .val { padding: 4px 6px; }
+  .labeled-box .val input, .labeled-box .val textarea {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    padding: 5px 8px;
+  }
+  .labeled-box .val input:focus, .labeled-box .val textarea:focus {
+    box-shadow: none;
+    background: var(--teal-light);
+  }
+
+  /* Checkbox group */
+  .check-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+  .check-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12.5px;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+  .check-row input[type="checkbox"],
+  .check-row input[type="radio"] {
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    min-height: 14px;
+    accent-color: var(--teal);
+    cursor: pointer;
+    flex-shrink: 0;
+    vertical-align: middle;
+    position: relative;
+    top: 0;
+    margin: 0;
+  }
+  .check-inline { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-bottom: 10px; }
+  .check-inline .check-row { font-size: 12px; }
+
+  /* Status row */
+  .status-row { display: flex; gap: 20px; align-items: center; }
+
+  /* Table */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 10px; }
+  .data-table th {
+    background: var(--teal);
+    color: #fff;
+    font-family: var(--font-head);
+    font-weight: 700;
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .data-table td {
+    border: 1px solid var(--border);
+    padding: 6px 8px;
+    vertical-align: middle;
+  }
+  .data-table tr:nth-child(even) td { background: #fafefe; }
+  .data-table td input[type="text"] {
+    border: none;
+    background: transparent;
+    padding: 3px 6px;
+    font-size: 12px;
+  }
+  .data-table td input[type="text"]:focus {
+    background: var(--teal-light);
+    box-shadow: none;
+  }
+  .data-table td .check-row { margin: 0; }
+  .data-table td.center { text-align: center; vertical-align: middle; }
+  /* Solo radios sueltos (no dentro de label.check-row) se centran con block */
+  .data-table td.center > input[type="radio"],
+  .data-table td.center > input[type="checkbox"],
+  .comp-table td.center > input[type="radio"],
+  .exp-table td.center > input[type="radio"] {
+    display: block;
+    margin: 0 auto;
+  }
+  /* Radios dentro de .check-row (ej: columna ¿Es requisito?) usan inline-flex */
+  .data-table td.center .check-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: auto;
+    justify-content: flex-start;
+  }
+  .data-table td.center .check-row input[type="radio"] {
+    display: inline-block;
+    margin: 0;
+    flex-shrink: 0;
+  }
+  /* La celda que contiene labels apiladas se convierte en columna centrada */
+  .data-table td.center:has(.check-row) {
+    display: table-cell;
+    text-align: left;
+    padding-left: 16px;
+  }
+  .data-table .sub-label {
+    font-size: 11px;
+    color: var(--text-light);
+    font-style: italic;
+  }
+
+  /* Competencias table */
+  .comp-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 10px; }
+  .comp-table th {
+    background: var(--teal);
+    color: #fff;
+    font-family: var(--font-head);
+    font-weight: 700;
+    padding: 7px 10px;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: .04em;
+  }
+  .comp-table td { border: 1px solid var(--border); padding: 5px 10px; }
+  .comp-table tr:nth-child(even) td { background: #fafefe; }
+  .comp-table td.num { color: var(--sub-title); font-weight: 700; width: 24px; text-align: center; }
+  .comp-table td.comp-name { color: var(--sub-title); }
+  .comp-table td.center { text-align: center; vertical-align: middle; }
+  .comp-table input[type="radio"] {
+    width: 14px; height: 14px;
+    accent-color: var(--teal);
+    cursor: pointer;
+  }
+
+  /* Conditions grid */
+  .cond-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+  .cond-cell {
+    padding: 12px 14px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .cond-cell:nth-child(even) { border-right: none; }
+  .cond-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .cond-cell .cond-label {
+    font-weight: 700;
+    font-size: 11.5px;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .cond-cell .check-group { margin-bottom: 0; }
+
+  /* Benefits grid */
+  .benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; margin-bottom: 12px; }
+  .benefit-grid .check-row { font-size: 12px; }
+
+  /* Carga table */
+  .carga-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+  .carga-cell { padding: 12px 14px; }
+  .carga-cell:first-child { border-right: 1px solid var(--border); }
+  .carga-cell .carga-label {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #fff;
+    background: var(--teal);
+    margin: -12px -14px 10px;
+    padding: 6px 14px;
+  }
+
+  /* Preguntas table */
+  .preg-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .preg-table td { border: 1px solid var(--border); padding: 0; }
+  .preg-table td.preg-num {
+    background: var(--teal);
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    font-size: 13px;
+    width: 36px;
+    font-family: var(--font-head);
+  }
+  .preg-table td.preg-input { padding: 0; }
+  .preg-table td.preg-input textarea {
+    border: none;
+    border-radius: 0;
+    min-height: 44px;
+    resize: none;
+    background: transparent;
+  }
+  .preg-table td.preg-input textarea:focus {
+    box-shadow: none;
+    background: var(--teal-light);
+  }
+
+  /* Footer */
+  .doc-footer {
+    border-top: 1px solid var(--border);
+    padding: 12px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #aaa;
+    font-style: italic;
+  }
+
+  /* Experience table */
+  .exp-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 8px; }
+  .exp-table th {
+    background: var(--teal);
+    color: #fff;
+    font-family: var(--font-head);
+    font-weight: 700;
+    padding: 7px 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    text-align: center;
+  }
+  .exp-table th:first-child { text-align: left; }
+  .exp-table td {
+    border: 1px solid var(--border);
+    padding: 5px 7px;
+    vertical-align: middle;
+  }
+  .exp-table tr:nth-child(even) td { background: #fafefe; }
+  .exp-table td.func-name input[type="text"] {
+    border: none; background: transparent; font-size: 12px; padding: 2px 5px;
+  }
+  .exp-table td.func-name input:focus { background: var(--teal-light); box-shadow: none; }
+  .exp-table td.center { text-align: center; vertical-align: middle; }
+  .exp-oblig { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; padding-left: 8px; }
+  .exp-oblig .check-row { font-size: 11px; }
+  .year-checks { display: flex; flex-wrap: wrap; gap: 2px 8px; justify-content: center; align-items: center; }
+  .year-checks .check-row { font-size: 11px; justify-content: center; }
+
+  @media print {
+    .print-bar { display: none; }
+    body { background: #fff; }
+    .document { box-shadow: none; margin: 0; max-width: 100%; }
+    input, textarea, select { border-color: #ccc !important; }
+    /* Make all textareas fully expanded - no scrolling */
+    textarea { overflow: visible !important; height: auto !important; }
+    /* Avoid page breaks inside sections */
+    .section { page-break-inside: avoid; }
+    .data-table, .exp-table, .comp-table, .preg-table { page-break-inside: auto; }
+    tr { page-break-inside: avoid; }
+  }
+
+  /* Auto-expand textareas as user types */
+</style>
+</head>
+<body>
+
+<div class="print-bar">
+  <span>Análisis de Puesto de Trabajo · Evoluciona Consulting S.L.</span>
+  <button class="btn-save" onclick="saveAsHTML()">💾 Guardar formulario</button>
+</div>
+
+<div class="document">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="logo-wrap">
+      <img src="data:image/jpeg;base64,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QAABAAAQQAAAAAEEAAAQQAQQAABAAAEAAAQQAAAAAQQAABBAAAAABBAAAEAAAQAABBAAAAABBAAAEEAAAAAEEAAAQAABAAAEEAAAAAEEAAAQQAAAAAQQAABAAAEAAAQQAAAAAQQAABBAAAAABBAAAEAAAQAABBAAAAABBAAAEEAAAAAEEAAAQAABAAAEEKUAAAAIIAAAgAACAAAggAAAAAIIAACAAAIAAAggAACAAAIAACCAAAAAAggAAIAAAgAACCAAAIAAAgAAIIAAAAACCAAAgAACAAAIIAAAgAACAAAggAAAAAIIAACAAAIAAAggAACAAAIAACCAAAAAAggAAIAAAgAACCAAAIAAAgAAIIAAAAACCAAAgAACAAAIIAAAAAIIAAAggAAAAAIIAACAAAIAAAggAAAAAggAACCAAAAAAggAAIAAAgAACCAAAAACCAAAIIAAAAACCAAAgAACAAAIIAAAAAIIAAAggAAAAAIIAACAAAIAAAggAAAAAggAACCAAAAAAggAAIAAAgAACCAAAAACCAAAIIAAAAACiAACAAAIIAAAgAACAAAggAAAAAIIAACAAAIAAAggAACAAAIAACCAAAAAAggAAIAAAgAACCAAAIAAAgAAIIAAAAACCAAAgAACAAC0wP8XYADLspN4IUSTEgAAAABJRU5ErkJggg==" alt="Evoluciona" style="width:140px;height:auto;">
+    </div>
+    <div class="cover-title">Análisis de Puesto<br>de Trabajo</div>
+    <div class="cover-subtitle">Descripción y perfil del puesto</div>
+    <table class="cover-table">
+      <tbody><tr>
+        <td>Empresa cliente:</td>
+        <td><input type="text" placeholder="Nombre de la empresa cliente" value=""></td>
+      </tr>
+      <tr>
+        <td>Puesto a cubrir:</td>
+        <td><input type="text" placeholder="Denominación del puesto" value=""></td>
+      </tr>
+      <tr>
+        <td>Fecha de elaboración:</td>
+        <td><input type="text" placeholder="DD / MM / AAAA" style="max-width:160px" value=""></td>
+      </tr>
+      <tr>
+        <td>Consultor/a responsable:</td>
+        <td><input type="text" placeholder="Nombre del/la consultor/a" value=""></td>
+      </tr>
+      <tr>
+        <td>Estado:</td>
+        <td>
+          <div class="check-inline" style="padding:4px 0">
+            <label class="check-row"><input type="radio" name="estado" value="borrador" data-was-checked="false"> Borrador</label>
+            <label class="check-row"><input type="radio" name="estado" value="validado" data-was-checked="false"> Validado por cliente</label>
+          </div>
+        </td>
+      </tr>
+    </tbody></table>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- 01 DATOS DE LA EMPRESA -->
+    <div class="section">
+      <div class="section-title">01. Datos de la empresa</div>
+      <div class="grid-2">
+        <div class="field-group">
+          <label class="field-label">Nombre de la empresa</label>
+          <input type="text" value="">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Persona de contacto</label>
+          <input type="text" value="">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Actividad principal / Sector</label>
+          <input type="text" value="">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Número de empleados</label>
+          <input type="text" value="">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Teléfono de contacto</label>
+          <input type="tel" value="-">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Correo electrónico</label>
+          <input type="email" value="">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Dirección / Sede</label>
+          <input type="text" value="">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Página web</label>
+          <input type="url" placeholder="https://…" value="">
+        </div>
+      </div>
+      <div class="field-group" style="margin-top:4px">
+        <label class="field-label">Breve descripción de la empresa</label>
+        <textarea class="tall" data-height="119px" style="overflow: hidden; resize: none; height: 119px;">
+</textarea>
+      </div>
+    </div>
+
+    <!-- 02 CONTEXTO Y JUSTIFICACIÓN -->
+    <div class="section">
+      <div class="section-title">02. Contexto y justificación del puesto</div>
+      <div class="hint">Esta sección es clave: define por qué existe este proceso y qué se va a encontrar el candidato al incorporarse. Impacta directamente en el enfoque de búsqueda y en las preguntas de entrevista.</div>
+
+      <div class="sub-title">Origen del proceso de selección</div>
+      <div class="check-inline">
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Nueva creación del puesto</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Sustitución — baja voluntaria / despido</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Crecimiento del equipo</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Restructuración interna</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Apertura de nueva línea de negocio / proyecto</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Otro: <input type="text" style="width:160px;margin-left:4px;padding:2px 6px;font-size:12px" value=""></label>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Retos principales que encontrará el candidato en los primeros 6 meses</label>
+        <textarea class="tall" data-height="119px" style="overflow: hidden; resize: none; height: 119px;"></textarea>
+      </div>
+
+    </div>
+
+    <!-- 03 IDENTIFICACIÓN DEL PUESTO -->
+    <div class="section">
+      <div class="section-title">03. Identificación del puesto</div>
+      <div class="grid-2">
+        <div class="field-group">
+          <label class="field-label">Nombre del puesto</label>
+          <input type="text" value="">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Departamento / Área</label>
+          <input type="text" value="">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Puesto del que depende jerárquicamente</label>
+          <input type="text" value="">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Número de personas a su cargo directo</label>
+          <input type="text" value="">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Relaciones horizontales y externas <span class="opt">(departamentos o agentes externos con los que se relacionará habitualmente)</span></label>
+        <textarea style="min-height: 60px; overflow: hidden; resize: none; height: 59px;" data-height="59px">
+</textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">¿Quién sustituye actualmente a esta persona?</label>
+        <input type="text" value="">
+      </div>
+    </div>
+
+    <!-- 04 MISIÓN -->
+    <div class="section">
+      <div class="section-title">04. Misión del puesto</div>
+      <div class="hint">Redactar en una o dos frases la razón de ser del puesto. Qué tiene que conseguir, para qué existe dentro de la organización. No es un listado de tareas: es el propósito que lo justifica.</div>
+      <textarea class="xtall" data-height="159px" style="overflow: hidden; resize: none; height: 159px;"></textarea>
+    </div>
+
+    <!-- 05 FINALIDADES, FUNCIONES, RESPONSABILIDADES Y COMPETENCIAS TÉCNICAS -->
+    <div class="section">
+      <div class="section-title">05. Finalidades, Funciones, responsabilidades y competencias técnicas</div>
+
+      <div class="sub-title">5.1 Finalidades principales del puesto</div>
+      <textarea class="xtall" data-height="159px" style="overflow: hidden; resize: none; height: 159px;"></textarea>
+
+      <div class="sub-title">5.2 Funciones principales y periódicas</div>
+      <div class="hint">Responsabilidades nucleares del puesto, las que definen el día a día. Ordenar de mayor a menor peso en la carga de trabajo.</div>
+      <textarea class="xtall" data-height="159px" style="overflow: hidden; resize: none; height: 159px;"></textarea>
+
+      <div class="sub-title">5.3 Responsabilidades claves</div>
+      <textarea class="xtall" data-height="159px" style="overflow: hidden; resize: none; height: 159px;"></textarea>
+
+      <div class="sub-title">5.4 Competencias técnicas necesarias</div>
+      <textarea class="xtall" data-height="159px" style="overflow: hidden; resize: none; height: 159px;"></textarea>
+
+    </div>
+
+    <!-- 06 REQUISITOS -->
+    <div class="section">
+      <div class="section-title">06. Requisitos del puesto</div>
+
+      <div class="sub-title">6.1 Formación académica</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Titulación / Formación</th>
+            <th style="width:110px;text-align:center">Obligatorio</th>
+            <th style="width:110px;text-align:center">Valorable</th>
+            <th style="width:60px;text-align:center">N/A</th>
+          </tr>
+        </thead>
+        <tbody id="form-rows">
+          <tr>
+            <td>Grado universitario <span class="sub-label">(indicar rama / titulación)</span><br><input type="text" placeholder="Ej: Grado en ADE / Derecho / Psicología…" value=""></td>
+            <td class="center"><input type="radio" name="form1" value="oblig" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="form1" value="val" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="form1" value="na" data-was-checked="false"></td>
+          </tr>
+          <tr>
+            <td>Máster o posgrado <span class="sub-label">(indicar especialidad)</span><br><input type="text" placeholder="Ej: Máster en RRHH / Dirección Financiera…" value=""></td>
+            <td class="center"><input type="radio" name="form2" value="oblig" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="form2" value="val" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="form2" value="na" data-was-checked="false"></td>
+          </tr>
+          <tr>
+            <td>FP Superior <span class="sub-label">(indicar familia profesional)</span><br><input type="text" placeholder="Ej: Administración / Informática / Sanidad…" value=""></td>
+            <td class="center"><input type="radio" name="form3" value="oblig" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="form3" value="val" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="form3" value="na" data-was-checked="false"></td>
+          </tr>
+          <tr>
+            <td>Certificaciones profesionales específicas<br><input type="text" placeholder="Ej: PMP, Six Sigma, CFA…" value=""></td>
+            <td class="center"><input type="radio" name="form4" value="oblig" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="form4" value="val" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="form4" value="na" data-was-checked="false"></td>
+          </tr>
+          <tr>
+            <td>Otra formación relevante<br><input type="text" placeholder="Indicar" value=""></td>
+            <td class="center"><input type="radio" name="form5" value="oblig" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="form5" value="val" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="form5" value="na" data-was-checked="false"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sub-title">6.2 Experiencia profesional requerida por función</div>
+      <div class="hint">Indicar si la experiencia en cada función es obligatoria o deseable, y el mínimo de años. Reemplazar las etiquetas genéricas con las funciones reales del puesto.</div>
+      <table class="exp-table">
+        <thead>
+          <tr>
+            <th style="width:35%">Función / Responsabilidad</th>
+            <th style="width:12%">Obligatorio</th>
+            <th style="width:13%">1-2 años</th>
+            <th style="width:13%">2-4 años</th>
+            <th style="width:13%">4-6 años</th>
+            <th style="width:14%">+6 años</th>
+          </tr>
+        </thead>
+        <tbody id="exp-rows"><tr>
+    <td class="func-name"><input type="text" placeholder="Función 1: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig1" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig1" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp1" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp1" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp1" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp1" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 2: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig2" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig2" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp2" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp2" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp2" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp2" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 3: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig3" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig3" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp3" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp3" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp3" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp3" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 4: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig4" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig4" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp4" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp4" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp4" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp4" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 5: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig5" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig5" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp5" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp5" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp5" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp5" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 6: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig6" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig6" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp6" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp6" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp6" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp6" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 7: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig7" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig7" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp7" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp7" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp7" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp7" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 8: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig8" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig8" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp8" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp8" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp8" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp8" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 9: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig9" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig9" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp9" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp9" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp9" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp9" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 10: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig10" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig10" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp10" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp10" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp10" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp10" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 11: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig11" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig11" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp11" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp11" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp11" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp11" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 12: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig12" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig12" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp12" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp12" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp12" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp12" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 13: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig13" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig13" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp13" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp13" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp13" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp13" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 14: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig14" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig14" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp14" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp14" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp14" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp14" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 15: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig15" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig15" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp15" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp15" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp15" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp15" value="4" data-was-checked="false"></label></div></td>
+  </tr><tr>
+    <td class="func-name"><input type="text" placeholder="Función 16: descripción del área de experiencia…" value=""></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig16" value="si" data-was-checked="false"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig16" value="no" data-was-checked="false"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp16" value="1" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp16" value="2" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp16" value="3" data-was-checked="false"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp16" value="4" data-was-checked="false"></label></div></td>
+  </tr></tbody>
+      </table>
+
+      <div class="sub-title">6.3 Conocimientos técnicos específicos</div>
+      <div class="hint">Herramientas, software, normativa sectorial, metodologías u otros conocimientos técnicos. Indicar si son obligatorios o valorables.</div>
+      <table class="data-table" id="tech-table">
+        <thead>
+          <tr>
+            <th>Conocimiento / Herramienta / Normativa / Software</th>
+            <th style="width:110px;text-align:center">Obligatorio</th>
+            <th style="width:110px;text-align:center">Valorable</th>
+          </tr>
+        </thead>
+        <tbody id="tech-rows"><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value="LinkedIn Recruiter y búsqueda activa de candidatos"></td>
+    <td class="center"><input type="radio" name="tech1" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech1" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value="Portales de empleo: Infojobs, Indeed, Tecnoempleo u otros"></td>
+    <td class="center"><input type="radio" name="tech2" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech2" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value="Microsoft Office: Word, Excel, PowerPoint (nivel medio-alto)"></td>
+    <td class="center"><input type="radio" name="tech3" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech3" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value="Herramientas de evaluación y assessment por competencias"></td>
+    <td class="center"><input type="radio" name="tech4" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech4" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value="Herramientas de comunicación interna: Teams, Slack u otras"></td>
+    <td class="center"><input type="radio" name="tech5" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech5" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value="Conocimiento básico del marco laboral español (contratos, convenios)"></td>
+    <td class="center"><input type="radio" name="tech6" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech6" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value="ERP o software de gestión de RRHH (Factorial, Slack, Notion o similares))"></td>
+    <td class="center"><input type="radio" name="tech7" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech7" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value="Herramientas de IA aplicadas a selección y gestión del talento"></td>
+    <td class="center"><input type="radio" name="tech8" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech8" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value="Metodología STAR para entrevistas por competencias"></td>
+    <td class="center"><input type="radio" name="tech9" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech9" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value="Diseño de encuestas de clima y análisis de resultados"></td>
+    <td class="center"><input type="radio" name="tech10" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech10" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value="Nociones de derecho laboral y convenio colectivo (sin administración de nómina)"></td>
+    <td class="center"><input type="radio" name="tech11" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech11" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value="Metodologías de evaluación del desempeño (OKRs, 360°, MBO)"></td>
+    <td class="center"><input type="radio" name="tech12" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech12" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value=""></td>
+    <td class="center"><input type="radio" name="tech13" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech13" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value=""></td>
+    <td class="center"><input type="radio" name="tech14" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech14" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value=""></td>
+    <td class="center"><input type="radio" name="tech15" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech15" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value=""></td>
+    <td class="center"><input type="radio" name="tech16" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech16" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value=""></td>
+    <td class="center"><input type="radio" name="tech17" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech17" value="val" data-was-checked="false"></td>
+  </tr><tr>
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…" value=""></td>
+    <td class="center"><input type="radio" name="tech18" value="oblig" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="tech18" value="val" data-was-checked="false"></td>
+  </tr></tbody>
+      </table>
+
+      <div class="sub-title">6.4 Idiomas</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width:18%">Idioma</th>
+            <th style="width:22%">Básico (A1/A2)</th>
+            <th style="width:22%">Medio (B1/B2)</th>
+            <th style="width:22%">Alto (C1/C2)</th>
+            <th style="width:16%">¿Es requisito?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600">Español</td>
+            <td class="center"><input type="radio" name="es" value="basico" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="es" value="medio" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="es" value="alto" data-was-checked="false"></td>
+            <td class="center">
+              <label class="check-row" style="justify-content:center"><input type="radio" name="es-req" value="oblig" data-was-checked="false"> Obligatorio</label>
+              <label class="check-row" style="justify-content:center"><input type="radio" name="es-req" value="val" data-was-checked="false"> Valorable</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">Inglés</td>
+            <td class="center"><input type="radio" name="en" value="basico" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="en" value="medio" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="en" value="alto" data-was-checked="false"></td>
+            <td class="center">
+              <label class="check-row" style="justify-content:center"><input type="radio" name="en-req" value="oblig" data-was-checked="false"> Obligatorio</label>
+              <label class="check-row" style="justify-content:center"><input type="radio" name="en-req" value="val" data-was-checked="false"> Valorable</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">Francés</td>
+            <td class="center"><input type="radio" name="fr" value="basico" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="fr" value="medio" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="fr" value="alto" data-was-checked="false"></td>
+            <td class="center">
+              <label class="check-row" style="justify-content:center"><input type="radio" name="fr-req" value="oblig" data-was-checked="false"> Obligatorio</label>
+              <label class="check-row" style="justify-content:center"><input type="radio" name="fr-req" value="val" data-was-checked="false"> Valorable</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">Alemán</td>
+            <td class="center"><input type="radio" name="de" value="basico" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="de" value="medio" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="de" value="alto" data-was-checked="false"></td>
+            <td class="center">
+              <label class="check-row" style="justify-content:center"><input type="radio" name="de-req" value="oblig" data-was-checked="false"> Obligatorio</label>
+              <label class="check-row" style="justify-content:center"><input type="radio" name="de-req" value="val" data-was-checked="false"> Valorable</label>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="Otro idioma…" value=""></td>
+            <td class="center"><input type="radio" name="ot-lang" value="basico" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="ot-lang" value="medio" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="ot-lang" value="alto" data-was-checked="false"></td>
+            <td class="center">
+              <label class="check-row" style="justify-content:center"><input type="radio" name="ot-lang-req" value="oblig" data-was-checked="false"> Obligatorio</label>
+              <label class="check-row" style="justify-content:center"><input type="radio" name="ot-lang-req" value="val" data-was-checked="false"> Valorable</label>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="Otro idioma…" value=""></td>
+            <td class="center"><input type="radio" name="ot-lang2" value="basico" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="ot-lang2" value="medio" data-was-checked="false"></td>
+            <td class="center"><input type="radio" name="ot-lang2" value="alto" data-was-checked="false"></td>
+            <td class="center">
+              <label class="check-row" style="justify-content:center"><input type="radio" name="ot-lang2-req" value="oblig" data-was-checked="false"> Obligatorio</label>
+              <label class="check-row" style="justify-content:center"><input type="radio" name="ot-lang2-req" value="val" data-was-checked="false"> Valorable</label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 07 PERFIL COMPETENCIAL -->
+    <div class="section">
+      <div class="section-title">07. Perfil competencial</div>
+      <div class="hint">Marcar únicamente las competencias necesarias para el puesto. Se recomienda no superar 10-12. Priorizar las que sean realmente diferenciales y que no puedan entrenarse fácilmente en el puesto.</div>
+      <table class="comp-table" id="comp-table"><thead><tr>
+  <th style="width:28px"></th>
+  <th style="text-align:left">Competencia / Habilidad</th>
+  <th style="width:90px">Básico</th>
+  <th style="width:90px">Medio</th>
+  <th style="width:90px">Alto</th>
+</tr></thead><tbody><tr>
+    <td class="num">1</td>
+    <td class="comp-name">Autoconfianza</td>
+    <td class="center"><input type="radio" name="comp1" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp1" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp1" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">2</td>
+    <td class="comp-name">Autocontrol y gestión emocional</td>
+    <td class="center"><input type="radio" name="comp2" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp2" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp2" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">3</td>
+    <td class="comp-name">Búsqueda de información</td>
+    <td class="center"><input type="radio" name="comp3" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp3" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp3" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">4</td>
+    <td class="comp-name">Capacidad de aprendizaje</td>
+    <td class="center"><input type="radio" name="comp4" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp4" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp4" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">5</td>
+    <td class="comp-name">Comunicación interpersonal</td>
+    <td class="center"><input type="radio" name="comp5" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp5" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp5" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">6</td>
+    <td class="comp-name">Creatividad e innovación</td>
+    <td class="center"><input type="radio" name="comp6" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp6" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp6" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">7</td>
+    <td class="comp-name">Desarrollo de personas</td>
+    <td class="center"><input type="radio" name="comp7" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp7" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp7" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">8</td>
+    <td class="comp-name">Dirección y liderazgo de equipos</td>
+    <td class="center"><input type="radio" name="comp8" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp8" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp8" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">9</td>
+    <td class="comp-name">Empatía</td>
+    <td class="center"><input type="radio" name="comp9" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp9" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp9" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">10</td>
+    <td class="comp-name">Flexibilidad y adaptabilidad</td>
+    <td class="center"><input type="radio" name="comp10" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp10" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp10" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">11</td>
+    <td class="comp-name">Gestión de conflictos</td>
+    <td class="center"><input type="radio" name="comp11" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp11" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp11" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">12</td>
+    <td class="comp-name">Identificación con la compañía / cultura</td>
+    <td class="center"><input type="radio" name="comp12" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp12" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp12" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">13</td>
+    <td class="comp-name">Influencia y persuasión</td>
+    <td class="center"><input type="radio" name="comp13" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp13" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp13" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">14</td>
+    <td class="comp-name">Iniciativa y proactividad</td>
+    <td class="center"><input type="radio" name="comp14" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp14" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp14" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">15</td>
+    <td class="comp-name">Inteligencia emocional</td>
+    <td class="center"><input type="radio" name="comp15" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp15" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp15" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">16</td>
+    <td class="comp-name">Negociación</td>
+    <td class="center"><input type="radio" name="comp16" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp16" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp16" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">17</td>
+    <td class="comp-name">Orientación al cliente</td>
+    <td class="center"><input type="radio" name="comp17" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp17" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp17" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">18</td>
+    <td class="comp-name">Orientación a resultados</td>
+    <td class="center"><input type="radio" name="comp18" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp18" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp18" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">19</td>
+    <td class="comp-name">Orientación estratégica</td>
+    <td class="center"><input type="radio" name="comp19" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp19" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp19" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">20</td>
+    <td class="comp-name">Pensamiento analítico</td>
+    <td class="center"><input type="radio" name="comp20" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp20" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp20" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">21</td>
+    <td class="comp-name">Pensamiento conceptual</td>
+    <td class="center"><input type="radio" name="comp21" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp21" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp21" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">22</td>
+    <td class="comp-name">Planificación y organización</td>
+    <td class="center"><input type="radio" name="comp22" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp22" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp22" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">23</td>
+    <td class="comp-name">Preocupación por el orden y la calidad</td>
+    <td class="center"><input type="radio" name="comp23" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp23" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp23" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">24</td>
+    <td class="comp-name">Resiliencia y tolerancia al estrés</td>
+    <td class="center"><input type="radio" name="comp24" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp24" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp24" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">25</td>
+    <td class="comp-name">Responsabilidad</td>
+    <td class="center"><input type="radio" name="comp25" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp25" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp25" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">26</td>
+    <td class="comp-name">Toma de decisiones</td>
+    <td class="center"><input type="radio" name="comp26" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp26" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp26" value="alto" data-was-checked="false"></td>
+  </tr><tr>
+    <td class="num">27</td>
+    <td class="comp-name">Trabajo en equipo</td>
+    <td class="center"><input type="radio" name="comp27" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp27" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp27" value="alto" data-was-checked="false"></td>
+  </tr><tr style="background:#fafefe">
+    <td class="num">28</td>
+    <td class="comp-name">Visión de negocio</td>
+    <td class="center"><input type="radio" name="comp28" value="basico" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp28" value="medio" data-was-checked="false"></td>
+    <td class="center"><input type="radio" name="comp28" value="alto" data-was-checked="false"></td>
+  </tr></tbody></table>
+      <div class="field-group" style="margin-top:10px">
+        <label class="field-label">Observaciones sobre competencias <span class="opt">(competencias clave no incluidas en la tabla, o aclaraciones sobre el nivel requerido)</span></label>
+        <textarea style="min-height: 60px; overflow: hidden; resize: none; height: 59px;" data-height="59px"></textarea>
+      </div>
+    </div>
+
+    <!-- 08 PERFIL MOTIVACIONAL -->
+    <div class="section">
+      <div class="section-title">08. Perfil motivacional y encaje cultural</div>
+      <div class="hint">Esta sección ayuda a identificar candidatos que no solo puedan hacer el trabajo, sino que quieran hacerlo en este contexto concreto. Es fundamental para reducir la rotación temprana.</div>
+      <div class="field-group">
+        <label class="field-label">¿Qué tipo de persona encaja con la cultura de esta empresa? <span class="opt">(estilo de trabajo, valores, forma de relacionarse con el equipo y la dirección…)</span></label>
+        <textarea data-height="79px" style="overflow: hidden; resize: none; height: 79px;">
+</textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">¿Qué puede ofrecer la empresa en términos de desarrollo profesional? <span class="opt">(plan de carrera, autonomía, retos, aprendizaje, proyección…)</span></label>
+        <textarea data-height="79px" style="overflow: hidden; resize: none; height: 79px;"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">¿Qué perfil motivacional NO encajaría en este puesto? <span class="opt">(señales de alerta que hay que detectar en entrevista)</span></label>
+        <textarea data-height="79px" style="overflow: hidden; resize: none; height: 79px;"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Estilo de liderazgo de la empresa / del responsable directo <span class="opt">(cómo gestiona, cómo comunica, qué espera del equipo…)</span></label>
+        <textarea data-height="79px" style="overflow: hidden; resize: none; height: 79px;"></textarea>
+      </div>
+    </div>
+
+    <!-- 09 CONDICIONES LABORALES -->
+    <div class="section">
+      <div class="section-title">09. Condiciones laborales</div>
+      <div class="cond-grid">
+        <div class="cond-cell">
+          <div class="cond-label">Tipo de jornada</div>
+          <div class="check-group">
+            <label class="check-row"><input type="radio" name="jornada" value="completa" data-was-checked="false"> Jornada completa</label>
+            <label class="check-row"><input type="radio" name="jornada" value="media" data-was-checked="false"> Media jornada</label>
+            <label class="check-row"><input type="radio" name="jornada" value="parcial" data-was-checked="false"> Jornada parcial <input type="text" style="width:80px;margin-left:4px;font-size:11px;padding:2px 5px" placeholder="horas" value=""></label>
+          </div>
+        </div>
+        <div class="cond-cell">
+          <div class="cond-label">Horario</div>
+          <div class="check-group">
+            <label class="check-row"><input type="radio" name="horario" value="fijo" data-was-checked="false"> Horario fijo</label>
+            <label class="check-row"><input type="radio" name="horario" value="partido" data-was-checked="false"> Horario partido (mañana y tarde)</label>
+            <label class="check-row"><input type="radio" name="horario" value="rotativo" data-was-checked="false"> Turno rotativo</label>
+            <label class="check-row"><input type="radio" name="horario" value="flexible" data-was-checked="false"> Flexible / Híbrido <input type="text" style="width:80px;margin-left:4px;font-size:11px;padding:2px 5px" placeholder="especificar" value=""></label>
+            <label class="check-row"><input type="radio" name="horario" value="otros" data-was-checked="false"> Otros</label>
+            <textarea name="horario_otros" rows="2" placeholder="Indica aquí el horario..." style="width: 100%; margin-top: 6px; font-size: 11px; padding: 5px 8px; border: 1px solid rgb(168, 224, 223); border-radius: 4px; resize: none; font-family: inherit; box-sizing: border-box; overflow: hidden; height: 79px;" data-height="79px"></textarea>
+          </div>
+        </div>
+        <div class="cond-cell">
+          <div class="cond-label">Tipo de contrato</div>
+          <div class="check-group">
+            <label class="check-row"><input type="radio" name="contrato" value="indef" data-was-checked="false"> Indefinido</label>
+            <label class="check-row"><input type="radio" name="contrato" value="temp" data-was-checked="false"> Temporal</label>
+            <label class="check-row"><input type="radio" name="contrato" value="obra" data-was-checked="false"> Por obra o proyecto</label>
+            <label class="check-row"><input type="radio" name="contrato" value="otro" data-was-checked="false"> Otro: <input type="text" style="width:110px;margin-left:4px;font-size:11px;padding:2px 5px" value=""></label>
+          </div>
+        </div>
+        <div class="cond-cell">
+          <div class="cond-label">Periodo de prueba</div>
+          <div class="check-group">
+            <label class="check-row"><input type="radio" name="prueba" value="1m" data-was-checked="false"> 1 mes</label>
+            <label class="check-row"><input type="radio" name="prueba" value="2m" data-was-checked="false"> 2 meses</label>
+            <label class="check-row"><input type="radio" name="prueba" value="3m" data-was-checked="false"> 3 meses</label>
+            <label class="check-row"><input type="radio" name="prueba" value="6m" data-was-checked="false"> 6 meses</label>
+          </div>
+        </div>
+        <div class="cond-cell">
+          <div class="cond-label">Retribución bruta anual</div>
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;font-size:12px">
+            <span>Rango:</span>
+            <input type="text" style="width:90px" placeholder="mín. €" value="">
+            <span>a</span>
+            <input type="text" style="width:90px" placeholder="máx. €" value="">
+          </div>
+          <div class="cond-label">Pagas extraordinarias</div>
+          <div class="check-group">
+            <label class="check-row"><input type="radio" name="pagas" value="bruto" data-was-checked="false"> Incluidas en el bruto</label>
+            <label class="check-row"><input type="radio" name="pagas" value="14" data-was-checked="false"> 14 pagas <input type="text" style="width:90px;margin-left:4px;font-size:11px;padding:2px 5px" placeholder="importe" value=""></label>
+          </div>
+        </div>
+        <div class="cond-cell">
+          <div class="cond-label">Variable / Bonus</div>
+          <div class="check-group" style="margin-bottom:10px">
+            <label class="check-row"><input type="radio" name="variable" value="no" data-was-checked="false"> No aplica</label>
+            <label class="check-row"><input type="radio" name="variable" value="si" data-was-checked="false"> Sí — objetivo y %: <input type="text" style="width:100px;margin-left:4px;font-size:11px;padding:2px 5px" value=""></label>
+          </div>
+          <div class="cond-label">Revisión salarial</div>
+          <div class="check-group">
+            <label class="check-row"><input type="radio" name="revision" value="anual" data-was-checked="false"> Anual</label>
+            <label class="check-row"><input type="radio" name="revision" value="obj" data-was-checked="false"> Por objetivos</label>
+            <label class="check-row"><input type="radio" name="revision" value="no" data-was-checked="false"> No prevista</label>
+          </div>
+        </div>
+        <div class="cond-cell">
+          <div class="cond-label">Teletrabajo</div>
+          <div class="check-group">
+            <label class="check-row"><input type="radio" name="tele" value="no" data-was-checked="false"> No aplica — presencial 100%</label>
+            <label class="check-row"><input type="radio" name="tele" value="parcial" data-was-checked="false"> Parcial (<input type="text" style="width:30px;font-size:11px;padding:1px 4px" value="A acordar"> días/semana)</label>
+            <label class="check-row"><input type="radio" name="tele" value="total" data-was-checked="false"> Total — 100% remoto</label>
+          </div>
+          <div style="margin-top:10px">
+            <div class="cond-label" style="margin-bottom:4px">Anotaciones</div>
+            <textarea name="tele_anotaciones" rows="2" placeholder="Anotaciones sobre teletrabajo..." style="width: 100%; font-size: 11px; padding: 5px 8px; border: 1px solid rgb(168, 224, 223); border-radius: 4px; resize: none; font-family: inherit; box-sizing: border-box; overflow: hidden; height: 79px;" data-height="79px"></textarea>
+          </div>
+        </div>
+        <div class="cond-cell">
+          <div class="cond-label">Movilidad geográfica</div>
+          <div class="check-group">
+            <label class="check-row"><input type="radio" name="movilidad" value="no" data-was-checked="false"> No requerida</label>
+            <label class="check-row"><input type="radio" name="movilidad" value="ocas" data-was-checked="false"> Desplazamientos ocasionales</label>
+            <label class="check-row"><input type="radio" name="movilidad" value="frec" data-was-checked="false"> Movilidad frecuente o habitual</label>
+            <label class="check-row"><input type="radio" name="movilidad" value="total" data-was-checked="false"> Movilidad total (cambio de residencia)</label>
+          </div>
+        </div>
+        <div class="cond-cell">
+          <div class="cond-label">Ciudad / Provincia de trabajo</div>
+          <input type="text" placeholder="Ciudad / Provincia" value="">
+          <div class="cond-label" style="margin-top:10px">Permiso de conducir</div>
+          <div class="check-group">
+            <label class="check-row"><input type="radio" name="carnet" value="no" data-was-checked="false"> No necesario</label>
+            <label class="check-row"><input type="radio" name="carnet" value="req" data-was-checked="false"> Requerido — tipo: <input type="text" style="width:40px;font-size:11px;padding:1px 4px" value=""></label>
+            <label class="check-row"><input type="radio" name="carnet" value="empresa" data-was-checked="false"> Vehículo de empresa incluido</label>
+            <label class="check-row"><input type="radio" name="carnet" value="comp" data-was-checked="false"> Compensación por uso de vehículo propio</label>
+          </div>
+        </div>
+        <div class="cond-cell">
+          <div class="cond-label">Fecha prevista de incorporación</div>
+          <input type="text" placeholder="DD / MM / AAAA" style="margin-bottom:10px" value="">
+          <div class="cond-label">Origen del proceso</div>
+          <div class="check-group">
+            <label class="check-row"><input type="radio" name="origen2" value="nueva" data-was-checked="false"> Nueva creación</label>
+            <label class="check-row"><input type="radio" name="origen2" value="sust" data-was-checked="false"> Sustitución</label>
+            <label class="check-row"><input type="radio" name="origen2" value="rest" data-was-checked="false"> Restructuración</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 BENEFICIOS -->
+    <div class="section">
+      <div class="section-title">10. Beneficios y retribución flexible</div>
+      <div class="benefit-grid">
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Seguro médico privado</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Plan de pensiones / jubilación</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Ticket restaurante / Cheque gourmet</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Ticket transporte</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Ticket guardería / Apoyo conciliación</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Seguro de vida</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Formación continua a cargo de la empresa</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Idiomas a cargo de la empresa</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Plan de carrera estructurado</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Bonus por objetivos</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Flexibilidad horaria</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Días adicionales de vacaciones</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Descuentos en productos/servicios propios</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Wellbeing (gimnasio, salud mental…)</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Teléfono móvil de empresa</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Ordenador portátil de empresa</label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Otro: <input type="text" style="width:140px;margin-left:5px;font-size:11.5px;padding:2px 6px" value=""></label>
+        <label class="check-row"><input type="checkbox" data-was-checked="false"> Otro: <input type="text" style="width:140px;margin-left:5px;font-size:11.5px;padding:2px 6px" value=""></label>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Observaciones adicionales sobre condiciones o beneficios</label>
+        <textarea style="min-height: 60px; overflow: hidden; resize: none; height: 59px;" data-height="59px"></textarea>
+      </div>
+    </div>
+
+    <!-- 11 CARGA FÍSICA Y MENTAL -->
+    <div class="section">
+      <div class="section-title">11. Carga física y mental del puesto</div>
+      <div class="carga-grid">
+        <div class="carga-cell">
+          <div class="carga-label">Carga física</div>
+          <div class="check-group">
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Trabajo en posición estática prolongada</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Esfuerzo físico / manipulación de cargas</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Trabajo en altura o espacios confinados</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Exposición a ruido, calor u otros agentes</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Trabajo en exteriores / condiciones adversas</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Conducción habitual</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Uso obligatorio de EPIs</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Otro: <input type="text" style="width:140px;margin-left:5px;font-size:11px;padding:2px 5px" value=""></label>
+          </div>
+        </div>
+        <div class="carga-cell">
+          <div class="carga-label">Carga mental y cognitiva</div>
+          <div class="check-group">
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Toma de decisiones frecuente bajo presión</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Gestión simultánea de múltiples tareas</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Responsabilidad directa sobre personas / equipos</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Exposición habitual a situaciones de conflicto</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Alta concentración prolongada</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Responsabilidad económica / presupuestaria</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Trato continuo con clientes o agentes externos</label>
+            <label class="check-row"><input type="checkbox" data-was-checked="false"> Otro: <input type="text" style="width:140px;margin-left:5px;font-size:11px;padding:2px 5px" value=""></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 PREGUNTAS -->
+    <div class="section">
+      <div class="section-title">12. Preguntas de interés para el/la cliente/a</div>
+      <div class="hint">Indica aquellas preguntas concretas e importantes que consideres de vital importancia que le hagamos (Evoluciona desarrollará diferentes preguntas, pero tu aportación nos ayudará en el cribado final).</div>
+      <table class="preg-table" id="preg-table"><thead><tr><th style="width:36px;text-align:center">Nº</th><th>Pregunta</th></tr></thead><tbody><tr>
+    <td class="preg-num">1</td>
+    <td class="preg-input"><textarea placeholder="Escribe aquí la pregunta que consideres importante…" data-height="52px" style="overflow: hidden; resize: none; height: 52px;"></textarea></td>
+  </tr><tr>
+    <td class="preg-num">2</td>
+    <td class="preg-input"><textarea placeholder="Escribe aquí la pregunta que consideres importante…" data-height="52px" style="overflow: hidden; resize: none; height: 52px;"></textarea></td>
+  </tr><tr>
+    <td class="preg-num">3</td>
+    <td class="preg-input"><textarea placeholder="Escribe aquí la pregunta que consideres importante…" data-height="52px" style="overflow: hidden; resize: none; height: 52px;"></textarea></td>
+  </tr><tr>
+    <td class="preg-num">4</td>
+    <td class="preg-input"><textarea placeholder="Escribe aquí la pregunta que consideres importante…" data-height="52px" style="overflow: hidden; resize: none; height: 52px;"></textarea></td>
+  </tr><tr>
+    <td class="preg-num">5</td>
+    <td class="preg-input"><textarea placeholder="Escribe aquí la pregunta que consideres importante…" data-height="52px" style="overflow: hidden; resize: none; height: 52px;"></textarea></td>
+  </tr><tr>
+    <td class="preg-num">6</td>
+    <td class="preg-input"><textarea placeholder="Escribe aquí la pregunta que consideres importante…" data-height="52px" style="overflow: hidden; resize: none; height: 52px;"></textarea></td>
+  </tr><tr>
+    <td class="preg-num">7</td>
+    <td class="preg-input"><textarea placeholder="Escribe aquí la pregunta que consideres importante…" data-height="52px" style="overflow: hidden; resize: none; height: 52px;"></textarea></td>
+  </tr><tr>
+    <td class="preg-num">8</td>
+    <td class="preg-input"><textarea placeholder="Escribe aquí la pregunta que consideres importante…" data-height="52px" style="overflow: hidden; resize: none; height: 52px;"></textarea></td>
+  </tr><tr>
+    <td class="preg-num">9</td>
+    <td class="preg-input"><textarea placeholder="Escribe aquí la pregunta que consideres importante…" data-height="52px" style="overflow: hidden; resize: none; height: 52px;"></textarea></td>
+  </tr><tr>
+    <td class="preg-num">10</td>
+    <td class="preg-input"><textarea placeholder="Escribe aquí la pregunta que consideres importante…" data-height="52px" style="overflow: hidden; resize: none; height: 52px;"></textarea></td>
+  </tr></tbody></table>
+    </div>
+
+    <!-- 13 INFORMACIÓN ADICIONAL -->
+    <div class="section">
+      <div class="section-title">13. Información adicional y observaciones</div>
+      <div class="field-group">
+        <label class="field-label">Aspectos relevantes no recogidos en los apartados anteriores</label>
+        <textarea class="xtall" data-height="159px" style="overflow: hidden; resize: none; height: 159px;"></textarea>
+      </div>
+    </div>
+
+  </div><!-- /doc-body -->
+
+  <div class="doc-footer">
+    <span>Documento confidencial · Evoluciona Consulting S.L.</span>
+    <span>Aviso LOPD: Datos tratados con fines de consultoría de selección · Destrucción a los 60 días de finalización del proceso</span>
+  </div>
+
+</div><!-- /document -->
+
+<script>
+// Build experience rows
+const expBody = document.getElementById('exp-rows');
+for (let i = 1; i <= 0; i++) {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="func-name"><input type="text" placeholder="Función ${i}: descripción del área de experiencia…"></td>
+    <td class="center">
+      <div class="exp-oblig">
+        <label class="check-row"><input type="radio" name="oblig${i}" value="si"> Sí</label>
+        <label class="check-row"><input type="radio" name="oblig${i}" value="no"> No</label>
+      </div>
+    </td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp${i}" value="1"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp${i}" value="2"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp${i}" value="3"></label></div></td>
+    <td class="center"><div class="year-checks"><label class="check-row"><input type="radio" name="exp${i}" value="4"></label></div></td>
+  `;
+  expBody.appendChild(tr);
+}
+
+// Build tech rows
+const techBody = document.getElementById('tech-rows');
+for (let i = 1; i <= 0; i++) {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input type="text" placeholder="Ej: Excel avanzado / SAP / ISO 9001 / Agile / Salesforce…"></td>
+    <td class="center"><input type="radio" name="tech${i}" value="oblig"></td>
+    <td class="center"><input type="radio" name="tech${i}" value="val"></td>
+  `;
+  techBody.appendChild(tr);
+}
+
+// (competencias table and preguntas table are already rendered in HTML — do not overwrite)
+</script>
+
+<script>
+// Allow deselecting radio buttons by clicking an already-selected one
+document.addEventListener('click', function(e) {
+  if (e.target.type === 'radio') {
+    if (e.target.dataset.wasChecked === 'true') {
+      e.target.checked = false;
+      e.target.dataset.wasChecked = 'false';
+    } else {
+      document.querySelectorAll('input[type="radio"][name="' + e.target.name + '"]').forEach(function(r) {
+        r.dataset.wasChecked = 'false';
+      });
+      e.target.dataset.wasChecked = 'true';
+    }
+  }
+});
+// Init wasChecked state for pre-checked radios
+document.querySelectorAll('input[type="radio"]').forEach(function(r) {
+  r.dataset.wasChecked = r.checked ? 'true' : 'false';
+});
+
+// Auto-expand all textareas as user types
+document.querySelectorAll('textarea').forEach(function(ta) {
+  ta.style.overflow = 'hidden';
+  ta.style.resize = 'none';
+  function autoResize() {
+    ta.style.height = 'auto';
+    ta.style.height = ta.scrollHeight + 'px';
+  }
+  ta.addEventListener('input', autoResize);
+  autoResize();
+});
+
+// Save as HTML with all filled values preserved
+function saveAsHTML() {
+  // Collect all input values into the current DOM snapshot
+  var inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="url"]');
+  inputs.forEach(function(el) {
+    el.setAttribute('value', el.value);
+  });
+  var textareas = document.querySelectorAll('textarea');
+  textareas.forEach(function(el) {
+    el.textContent = el.value;
+    el.setAttribute('data-height', el.style.height);
+  });
+  var checkboxes = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
+  checkboxes.forEach(function(el) {
+    if (el.checked) {
+      el.setAttribute('checked', 'checked');
+      el.setAttribute('data-was-checked', 'true');
+    } else {
+      el.removeAttribute('checked');
+      el.setAttribute('data-was-checked', 'false');
+    }
+  });
+
+  // Inject a small restore script so heights re-apply on re-open
+  var restoreScript = '<scr'+'ipt>window.addEventListener("load",function(){document.querySelectorAll("textarea[data-height]").forEach(function(t){if(t.getAttribute("data-height"))t.style.height=t.getAttribute("data-height");});});<\/scr'+'ipt>';
+
+  var html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+  html = html.replace('<\/body>', restoreScript + '\n<\/body>');
+
+  var blob = new Blob([html], {type: 'text/html;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+
+  // Generate filename with date
+  var now = new Date();
+  var dd = String(now.getDate()).padStart(2,'0');
+  var mm = String(now.getMonth()+1).padStart(2,'0');
+  var yy = now.getFullYear();
+
+  // Try to get company name for filename
+  var empresa = '';
+  var inputs2 = document.querySelectorAll('.cover-table input[type="text"]');
+  if(inputs2[0] && inputs2[0].value.trim()) {
+    empresa = '_' + inputs2[0].value.trim().replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]/g,'').replace(/\s+/g,'_');
+  }
+  a.download = 'APT_Evoluciona' + empresa + '_' + dd + mm + yy + '.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+</script>
+
+
+<script>window.addEventListener("load",function(){document.querySelectorAll("textarea[data-height]").forEach(function(t){if(t.getAttribute("data-height"))t.style.height=t.getAttribute("data-height");});});</script>
+<script>window.addEventListener("load",function(){document.querySelectorAll("textarea[data-height]").forEach(function(t){if(t.getAttribute("data-height"))t.style.height=t.getAttribute("data-height");});});</script>
+<script>window.addEventListener("load",function(){document.querySelectorAll("textarea[data-height]").forEach(function(t){if(t.getAttribute("data-height"))t.style.height=t.getAttribute("data-height");});});</script>
+<script>window.addEventListener("load",function(){document.querySelectorAll("textarea[data-height]").forEach(function(t){if(t.getAttribute("data-height"))t.style.height=t.getAttribute("data-height");});});</script>
+<script>window.addEventListener("load",function(){document.querySelectorAll("textarea[data-height]").forEach(function(t){if(t.getAttribute("data-height"))t.style.height=t.getAttribute("data-height");});});</script>
+<script>window.addEventListener("load",function(){document.querySelectorAll("textarea[data-height]").forEach(function(t){if(t.getAttribute("data-height"))t.style.height=t.getAttribute("data-height");});});</script>
+</body></html>
